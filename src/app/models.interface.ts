@@ -15,3 +15,7 @@ export interface List {
   name: string;
   tasks: Array<Task>;
 }
+
+export interface Data {
+  lists: Array<List>;
+}

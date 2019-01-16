@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataManagerService } from '../data-manager.service';
-import { List } from '../models.interface';
+import { Data } from '../models.interface';
 
 @Component({
   selector: 'app-board',
@@ -8,7 +8,7 @@ import { List } from '../models.interface';
   styleUrls: ['./board.component.scss'],
 })
 export class BoardComponent implements OnInit {
-  data: { lists: Array<List> };
+  data: Data;
   constructor(private dataManager: DataManagerService) {}
 
   ngOnInit() {
