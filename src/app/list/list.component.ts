@@ -1,15 +1,20 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { List } from '../models.interface';
+import { DataManagerService } from '../data-manager.service';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
 })
-export class ListComponent implements OnInit {
+export class ListComponent {
   @Input() list: List;
 
-  constructor() {}
+  constructor(private dataService: DataManagerService) {}
 
-  ngOnInit() {}
+  delete() {
+    if (confirm('Do you really want to delete the list ' + this.list.name)) {
+      this.dataService.deleteList(this.list.listId);
+    }
+  }
 }
