@@ -4,7 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve  --open",
-    "build": "ng build --prod --output-path docs --base-href scrum-board-angular-alicante",
+    "build": "ng build --prod --output-path docs --base-href /scrum-board-angular-alicante/",
+    "postbuild": "mv docs/index.html docs/404.html",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
