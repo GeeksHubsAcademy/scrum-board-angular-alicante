@@ -9,4 +9,18 @@
     color: grey;
     width: 100%;
   }
+  i {
+    cursor: pointer;
+  }
+
+  .controls {
+    opacity: 0;
+    transition: opacity 400ms;
+  }
+  &:hover .controls {
+    opacity: 1;
+  }
+  i {
+    cursor: pointer;
+  }
 }
