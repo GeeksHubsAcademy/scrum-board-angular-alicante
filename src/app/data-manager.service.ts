@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { List } from './models.interface';
+import { List, Task } from './models.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -70,5 +70,23 @@ export class DataManagerService {
   }
   deleteList(listId: number) {
     this.data.lists = this.data.lists.filter(list => list.listId !== listId);
+  }
+  addNewTask(text: string, list: List) {
+    const now = new Date();
+    const newTask: Task = {
+      listId: list.listId,
+      taskId: Date.now(),
+      text,
+      completed: false,
+      color: 'white',
+      createdAt: now,
+      modifiedAt: now,
+    };
+    this.data.lists = this.data.lists.map(listObj => {
+      if (listObj.listId === list.listId) {
+        listObj.tasks.push(newTask);
+      }
+      return listObj;
+    });
   }
 }

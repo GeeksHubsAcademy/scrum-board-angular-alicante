@@ -17,4 +17,12 @@ export class ListComponent {
       this.dataService.deleteList(this.list.listId);
     }
   }
+  newTask(ev) {
+    const text = ev.target.value.trim();
+
+    if (text !== '') {
+      this.dataService.addNewTask(text, this.list);
+      ev.target.value = '';
+    }
+  }
 }
