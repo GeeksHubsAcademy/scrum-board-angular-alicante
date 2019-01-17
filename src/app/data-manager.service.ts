@@ -89,4 +89,12 @@ export class DataManagerService {
       return listObj;
     });
   }
+  deleteTask(task: Task) {
+    this.data.lists = this.data.lists.map(listObj => {
+      if (listObj.listId === task.listId) {
+        listObj.tasks = listObj.tasks.filter(taskObj => taskObj.taskId !== task.taskId);
+      }
+      return listObj;
+    });
+  }
 }
