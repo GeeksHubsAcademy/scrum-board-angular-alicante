@@ -67,7 +67,10 @@ export class DataManagerService {
     });
   }
   deleteList(listId: number) {
-    this.data.lists = this.data.lists.filter(list => list.listId !== listId);
+    // this.data.lists = this.data.lists.filter(list => list.listId !== listId);
+    this.api.deleteList(listId).then(res => {
+      this.loadDataFromBackend();
+    });
   }
   addNewTask(text: string, list: List) {
     const now = new Date();

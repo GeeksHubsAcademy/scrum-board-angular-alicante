@@ -63,4 +63,8 @@ export class ApiService {
     const body = { name };
     return this.http.post('https://apitrello.herokuapp.com/list/', body, options).toPromise();
   }
+  deleteList(id: number): any {
+    const options = { headers: { Authorization: `Bearer ${this.jwt}` } };
+    return this.http.delete('https://apitrello.herokuapp.com/list/' + id, options).toPromise();
+  }
 }
