@@ -17,6 +17,7 @@ export class DataManagerService {
     this.api
       .getLists()
       .then((rawLists: Array<any>) => {
+        console.log(rawLists);
         const lists = rawLists.map(rawList => ({
           listId: rawList.id,
           createdAt: rawList.createdAt,
@@ -50,15 +51,20 @@ export class DataManagerService {
     return this.data;
   }
   addNewList(name: string) {
-    const now = new Date();
-    const newList: List = {
-      listId: Date.now(),
-      createdAt: now,
-      modifiedAt: now,
-      name,
-      tasks: [],
-    };
-    this.data.lists.push(newList);
+    // const now = new Date();
+    // const newList: List = {
+    //   listId: Date.now(),
+    //   createdAt: now,
+    //   modifiedAt: now,
+    //   name,
+    //   tasks: [],
+    // };
+    // this.data.lists.push(newList);
+
+    this.api.newList(name).then(res => {
+      console.log(res);
+      this.loadDataFromBackend();
+    });
   }
   deleteList(listId: number) {
     this.data.lists = this.data.lists.filter(list => list.listId !== listId);
