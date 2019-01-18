@@ -10,9 +10,11 @@ import { ListComponent } from './list/list.component';
 import { TaskComponent } from './task/task.component';
 import { DataManagerService } from './data-manager.service';
 import { FormsModule } from '@angular/forms';
+import { RegisterViewComponent } from './register-view/register-view.component';
+import { LoginViewComponent } from './login-view/login-view.component';
 
 @NgModule({
-  declarations: [AppComponent, BoardComponent, ShowListsComponent, AddNewListComponent, ListComponent, TaskComponent],
+  declarations: [AppComponent, BoardComponent, ShowListsComponent, AddNewListComponent, ListComponent, TaskComponent, RegisterViewComponent, LoginViewComponent],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [DataManagerService],
   bootstrap: [AppComponent],
