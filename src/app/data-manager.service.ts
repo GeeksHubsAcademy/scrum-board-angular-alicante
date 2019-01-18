@@ -1,60 +1,52 @@
 import { Injectable } from '@angular/core';
 
 import { List, Task } from './models.interface';
+import { ApiService } from './api.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataManagerService {
   data: { lists: Array<List> } = {
-    lists: [
-      {
-        listId: 0,
-        createdAt: new Date(),
-        modifiedAt: new Date(),
-        name: 'to do',
-        tasks: [
-          {
-            listId: 0,
-            taskId: 0,
-            text: 'aprender angular',
-            completed: false,
-            color: 'white',
-            createdAt: new Date(),
-            modifiedAt: new Date(),
-          },
-          {
-            listId: 0,
-            taskId: 1,
-            text: 'aprender js',
-            completed: false,
-            color: 'white',
-            createdAt: new Date(),
-            modifiedAt: new Date(),
-          },
-        ],
-      },
-      {
-        listId: 1,
-        createdAt: new Date(),
-        modifiedAt: new Date(),
-        name: 'doing',
-        tasks: [
-          {
-            listId: 1,
-            taskId: 0,
-            text: 'aprender typescript',
-            completed: false,
-            color: 'white',
-            createdAt: new Date(),
-            modifiedAt: new Date(),
-          },
-        ],
-      },
-    ],
+    lists: [],
   };
+  constructor(private api: ApiService, private router: Router) {}
+
+  loadDataFromBackend() {
+    this.api
+      .getLists()
+      .then((rawLists: Array<any>) => {
+        const lists = rawLists.map(rawList => ({
+          listId: rawList.id,
+          createdAt: rawList.createdAt,
+          modifiedAt: rawList.updatedAt,
+          name: rawList.name,
+          tasks: [],
+        }));
+        Promise.all(
+          lists.map(async (list: List) => {
+            list.tasks = await this.api.getTasks(list.listId);
+            list.tasks = list.tasks.map((rawTask: any) => ({
+              listId: rawTask.idlist,
+              taskId: rawTask.id,
+              text: rawTask.task,
+              completed: false,
+              color: 'white',
+              createdAt: new Date(rawTask.createdAt),
+              modifiedAt: new Date(rawTask.updatedAt),
+            }));
+            return list;
+          }),
+        ).then(lists => {
+          this.data.lists = lists;
+        });
+      })
+      .catch(() => this.router.navigate(['/login']));
+  }
 
   getData() {
+    this.loadDataFromBackend();
     return this.data;
   }
   addNewList(name: string) {

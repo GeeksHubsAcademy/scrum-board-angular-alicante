@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Task, List } from './models.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -33,5 +34,13 @@ export class ApiService {
           }
         });
     });
+  }
+  getLists(): any {
+    const options = { headers: { Authorization: `Bearer ${this.jwt}` } };
+    return this.http.get('https://apitrello.herokuapp.com/list', options).toPromise();
+  }
+  getTasks(idlist: number): any {
+    const options = { headers: { Authorization: `Bearer ${this.jwt}` } };
+    return this.http.get('https://apitrello.herokuapp.com/list/tasks/' + idlist, options).toPromise();
   }
 }
