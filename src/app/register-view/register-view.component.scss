@@ -2,12 +2,14 @@ form {
   display: flex;
   flex-direction: column;
   align-items: center;
+  & > * {
+    max-width: 200px;
+  }
   input {
     all: unset;
     border-bottom: 1px solid grey;
     margin: 1em 0;
     padding: 0.5em;
-    max-width: 200px;
   }
   [type='submit'] {
     border: none;
