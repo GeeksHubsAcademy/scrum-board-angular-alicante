@@ -6,7 +6,7 @@ import { Task, List } from './models.interface';
   providedIn: 'root',
 })
 export class ApiService {
-  jwt: string;
+  jwt: string = localStorage.getItem('jwt');
   constructor(private http: HttpClient) {}
   register(username, password) {
     const body = { username, password };
@@ -26,6 +26,7 @@ export class ApiService {
           if (maybeNotAndError.status === 200) {
             const jwt = maybeNotAndError.error.text;
             this.jwt = jwt;
+            localStorage.setItem('jwt', jwt);
             resolve(200);
           } else if (maybeNotAndError.status === 401) {
             reject('Wrong password');
